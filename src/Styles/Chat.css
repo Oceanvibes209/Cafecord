@@ -1,0 +1,95 @@
+.background{
+    min-height: 100vh;
+    width: 100%;
+    background-color: whitesmoke;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+#ChatBtn:hover{
+    cursor: pointer;
+} 
+
+.SideMenu{
+    background-color: #E0C686;
+    width: 20%;
+    height: 880px;
+    
+}
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+    margin-bottom: 10px;    
+    
+  }
+  .button-container button {
+    margin: 10px 0;
+    background: none;
+    border: none;
+    color: black;
+    cursor: pointer;
+  }
+  .button-container button:hover {
+    text-decoration: none;
+  }
+  
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #7F7053;
+    background-image: url('../assets/cafecordav.png');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #7F7053; 
+  }
+  .username {
+    margin-top: 10px;
+    font-size: 1.0em;
+  }
+  
+  .channel-list {
+    background-color: #E0C686;
+    text-decoration: none;
+    padding: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    list-style-type: none;
+
+}
+.channel-list .channel-heading {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.channel-list li {
+    margin-bottom: 15px; 
+    transition: background-color 0.3s;
+}
+.channel-list li:hover {
+    background-color: #F9E8BD
+}
+
+.channel-list li a {
+    text-decoration: none; 
+    color: black;
+}
+
+
+
+
+ 
+ 
