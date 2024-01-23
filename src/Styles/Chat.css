@@ -44,15 +44,37 @@
   align-items: center;
 } 
 
+/* used to test spacing of avatar images
 .avatar-form--hide {
   color: transparent;
-}
+} */
 
 img {
   border-radius: 50%
 }
 
-/* working on hiding the radio buttons for more seamless avatar selection
-#inline-radio-1{
-  padding-bottom: 130px;
-} */
+
+/* working on hiding the radio buttons for more seamless avatar selection */
+#inline-radio-1, #inline-radio-3 {
+  padding-bottom: 150px;
+  padding-left: 90px;
+} 
+
+#inline-radio-7 {
+  padding-left: 90px;
+}
+
+/* testing to hide radio buttons */
+
+#inline-radio-1, #inline-radio-2, #inline-radio-3, #inline-radio-4, #inline-radio-7, #inline-radio-8 {
+  opacity: 0;
+} 
+
+
+.avatar-option {
+  cursor: pointer;
+}
+
+.avatar-option:hover {
+  outline: 7px solid #E0C686;
+}

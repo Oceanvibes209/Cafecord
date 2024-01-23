@@ -53,12 +53,12 @@ function Chat() {
             {/* Avatar selection form using radio buttons with avatar images*/}
             <p>Select avatar</p>
             <div className= "avatar-form">
-              <p className="avatar-form--hide">Select avatar</p>
+              {/* <p className="avatar-form--hide">Select Avatar</p> */}
               {['radio'].map((type) => (
                 <div key={`inline-${type}`} className="mb-3">
                   <Form.Check
                     inline
-                    label= {<img src= '/images/Beeo-o.jpg' alt='social-media-cafe' width='125px' height='125px'/>}
+                    label= {<img src= '/images/Beeo-o.jpg' alt='social-media-cafe' width='125px' height='125px' className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-1`}
@@ -66,7 +66,7 @@ function Chat() {
 
                   <Form.Check
                     inline
-                    label={<img src= '/images/cafeart.jpg' alt='cafe-friends' width='125px' height='125px'/>}
+                    label={<img src= '/images/cafeart.jpg' alt='two-cafe-friends' width='125px' height='125px'className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-2`}
@@ -74,7 +74,7 @@ function Chat() {
 
                   <Form.Check
                     inline
-                    label={<img src= '/images/cafeart2.jpg' alt='lady-holding-coffee' width='125px' height='125px'/>}
+                    label={<img src= '/images/cafeart2.jpg' alt='lady-holding-coffee' width='125px' height='125px'className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-3`}
@@ -82,10 +82,45 @@ function Chat() {
 
                   <Form.Check
                     inline
-                    label={<img src= '/images/computerDog.jpg' alt='coding-dog' width='125px' height='125px'/>}
+                    label={<img src= '/images/computerDog.jpg' alt='coding-dog' width='125px' height='125px'className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-4`}
+                  />
+                {/* QUality of images of these did not seem as crisp as the others                  
+                  <Form.Check
+                    inline
+                    label={<img src= '/images/cafeart4.png' alt='happy-cafe-guy' width='125px' height='125px'/>}
+                    name="group1"
+                    type={type}
+                    id={`inline-${type}-5`}
+                  />
+
+                  
+                  <Form.Check
+                    inline
+                    label={<img src= '/images/cafeart3.png' alt='magical-cafe-girl' width='125px' height='125px'/>}
+                    name="group1"
+                    type={type}
+                    id={`inline-${type}-6`}
+                  /> */}
+
+                  
+                  <Form.Check
+                    inline
+                    label={<img src= '/images/cafeart5.png' alt='pink-cafe-girl' width='125px' height='125px' className="avatar-option"/>}
+                    name="group1"
+                    type={type}
+                    id={`inline-${type}-7`}
+                  />
+                  
+                  
+                  <Form.Check
+                    inline
+                    label={<img src= '/images/cafeart6.png' alt='boy-walking-with-coffee' width='125px' height='125px' className="avatar-option" />}
+                    name="group1"
+                    type={type}
+                    id={`inline-${type}-8`}
                   />
                 
                 </div>
