@@ -1,8 +1,10 @@
 // import { useState } from 'react'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Login from './Pages/Login';
-import Chat from './Pages/Chat-area';
+import Chat from './Pages/Chat';
 
 
 function App() {
@@ -10,9 +12,16 @@ function App() {
   return (
     <Routes key={location.pathname} location={location} >
       <Route index element={<Login />} />
-      <Route path="/chat" element={<Chat />} />
+      <Route path='/Login' element={<Login />} />
+      <Route path="/Chat" element={<Chat />} />
     </Routes>
+    
   )
 }
 
 export default App
+
+/*<Routes key={location.pathname} location={location} >
+      <Route index element={<Login />} />
+      <Route path="/chat" element={<Chat />} />
+    </Routes>*/

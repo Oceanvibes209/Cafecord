@@ -1,0 +1,58 @@
+/* .avatarButton {
+  height: 40px;
+  width: 40px;
+  border
+}*/
+
+.modal {
+  background-color: #747053;
+  /* color: white; */
+}
+
+
+/* Did not work in changing inner- modal color
+.modal-container {
+  background-color: #747053;
+} */
+
+.modal-header {
+  display: flex;
+  align-content: center;
+  background-color: #E0C686;
+  color: #1A1718;
+}
+
+/* no success in centering title
+.modal-title {
+  display: flex;
+  align-items: center;
+} */
+
+.btn-open-modal, .btn-avatar-close, .btn-avatar-save {
+  background-color: #666563;
+  color: white;
+  
+}
+.btn-avatar-close:hover, .btn-avatar-save:hover {
+  background-color: #E0C686;
+  color: white;
+  
+}
+
+.avatar-form {
+  display: flex;
+  align-items: center;
+} 
+
+.avatar-form--hide {
+  color: transparent;
+}
+
+img {
+  border-radius: 50%
+}
+
+/* working on hiding the radio buttons for more seamless avatar selection
+#inline-radio-1{
+  padding-bottom: 130px;
+} */
