@@ -10,7 +10,10 @@ import AvatarContext from './Pages/AvatarContext';
 
 function App() {
   const location = useLocation();
-  const [selectedAvatar, setSelectedAvatar] = useState('/Avatars/Beeo-o.jpg');
+  const [selectedAvatar, setSelectedAvatar] = useState(() => {
+    // Get avatar from local storage or fallback to default
+    return localStorage.getItem('selectedAvatar') || '/Avatars/Beeo-o.jpg';
+  });
 
   return (
     <AvatarContext.Provider value={{ selectedAvatar, setSelectedAvatar }}>

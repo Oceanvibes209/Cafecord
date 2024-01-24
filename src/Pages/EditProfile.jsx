@@ -11,9 +11,8 @@ function EditProfile() {
     const selectAvatar = (avatar) => {
         if (window.confirm("Do you want to set this as your new avatar?")) {
             setSelectedAvatar(avatar);
+            localStorage.setItem('selectedAvatar', avatar); // Save to local storage
         }
-
-
 
     };
 
