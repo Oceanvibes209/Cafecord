@@ -9,6 +9,7 @@ import SignUp from './Pages/SignUp';
 import Profile from './Pages/Profile'
 import Main from './Pages/Main.jsx'
 import CreateGroup from './Pages/Create-group';
+import NotFound from './Pages/NotFound';
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,8 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/main" element={<Main />} />
       <Route path="/group-form" element={<CreateGroup/>}/>
+      <Route path="/chat" element={<Chat />} />
+      <Route path="*" element={<NotFound />} />
     </Routes> 
   )
 }
