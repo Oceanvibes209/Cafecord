@@ -1,17 +1,29 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext} from 'react';
 import { Link } from "react-router-dom";
 import "../Styles/Chat.css"
 import Button from 'react-bootstrap/Button'
-// import Offcanvas from 'react-bootstrap/Offcanvas'
+import AvatarContext from './AvatarContext';
 
 function Chat() {
-  // const [showOffcanvas, setShowOffcanvas] = useState(false);
-  // const handleOffcanvasToggle = () => setShowOffcanvas(!showOffcanvas);
 
+  const { selectedAvatar } = useContext(AvatarContext);
+  const [messages, setMessages] = useState([]);
 
-
-
-  function deleteMessage(button) {
+  function deleteMessage(messageId) {
+    // Confirm deletion (you can customize this part)
+    if (window.confirm("Are you sure you want to delete this message?")) {
+      // Filter out the message to be deleted
+      const updatedMessages = messages.filter(message => message.id !== messageId);
+  
+      // Update the messages state
+      setMessages(updatedMessages);
+  
+      // Update the messages in local storage
+      localStorage.setItem('messages', JSON.stringify(updatedMessages));
+    }
+  }
+  
+  function deleteDomMessage(button) {
     // Get the parent message element
     var message = button.closest('.messages');
     // Confirm deletion (you can customize this part)
@@ -20,8 +32,6 @@ function Chat() {
       message.remove();
     }
   }
-
-  const [messages, setMessages] = useState([]);
 
   function addMessage() {
     // Get the message text from the input field
@@ -38,7 +48,13 @@ function Chat() {
       };
 
       // Add the new message to the messages state
-      setMessages([...messages, newMessage]);
+
+
+      const updatedMessages = [...messages, newMessage];
+      setMessages(updatedMessages);
+
+       // Save updated messages to local storage
+       localStorage.setItem('messages', JSON.stringify(updatedMessages));
 
       // Clear the input field
       document.querySelector('.text-input').value = '';
@@ -60,27 +76,31 @@ function Chat() {
   }, [messages]);
 
 
+  useEffect(() => {
+    const savedMessages = JSON.parse(localStorage.getItem('messages')) || [];
+    setMessages(savedMessages);
+  }, []);
 
+  
 
   return (
-    <div className='background'>
+    <div className='chatBackground'>
 
       <div className='SideMenu'>
-        
-          <Link to={'/EditProfile'}><Button className="btn btn-primary side-btn" type="Button">Edit Profile</Button></Link>
-        
-        <Link to='/Login'><Button className="side-btn" variant="info"><p>Logout</p></Button>{' '}</Link>
+        <Link to={'/EditProfile'}><Button className="btn btn-primary side-btn" type="Button">Edit Profile</Button></Link>
+        <Link to={'/Login'}><Button className="side-btn" variant="info"><p>Logout</p></Button>{' '}</Link>
+        <Link to={'/group-form'} className='side-btn'><Button>Create Group</Button></Link>
       </div>
 
       <div className='ChatMainBody'>
         <div className='chat-title'>
-          <img className='logo' src="/assets/cafeLogo2.jpg" />
+          <img className='chatLogo' src="/assets/cafeLogo2.jpg" />
           <h1>Cafecord</h1>
         </div>
 
         <div className='messages sent'>
           <div className="message-info">
-            <Button className="btn btn-danger mobile-deleteBtn" type="Button" onClick={(e) => deleteMessage(e.target)}>
+            <Button className="btn btn-danger mobile-deleteBtn" type="Button" onClick={(e) => deleteDomMessage(e.target)}>
               x
             </Button>
             <img src='/Avatars/Beeo-o.jpg' alt="User Avatar" />
@@ -88,7 +108,7 @@ function Chat() {
               <div className="message-details">
                 <p>Cafevibes209</p>
                 <p className='timestamp'>Sent 12:03:09 PM</p>
-                <Button className="btn btn-danger deleteBtn" type="Button" onClick={(e) => deleteMessage(e.target)}>
+                <Button className="btn btn-danger deleteBtn" type="Button" onClick={(e) => deleteDomMessage(e.target)}>
                   X
                 </Button>
               </div>
@@ -99,7 +119,7 @@ function Chat() {
 
         <div className='messages received'>
           <div className="message-info">
-            <Button className="btn btn-danger mobile-deleteBtn" type="Button" onClick={(e) => deleteMessage(e.target)}>
+            <Button className="btn btn-danger mobile-deleteBtn" type="Button" onClick={(e) => deleteDomMessage(e.target)}>
               x
             </Button>
             <img src='/Avatars/cafeart.jpg' alt="User Avatar" />
@@ -107,7 +127,7 @@ function Chat() {
               <div className="message-details">
                 <p>AntoniaLatte</p>
                 <p className='timestamp'>Sent 12:09:43 PM</p>
-                <Button className="btn btn-danger deleteBtn" type="Button" onClick={(e) => deleteMessage(e.target)}>
+                <Button className="btn btn-danger deleteBtn" type="Button" onClick={(e) => deleteDomMessage(e.target)}>
                   X
                 </Button>
               </div>
@@ -117,14 +137,13 @@ function Chat() {
         </div>
 
 
-        <div className='messages received'>
+        <div className='messages received' key={messages.id}>
           <div className="message-info">
             <Button
 
               className="btn btn-danger mobile-deleteBtn"
               type="Button"
-              onClick={(e) => deleteMessage(e.target)}
-
+              onClick={(e) => deleteDomMessage(e.target)}
             >
               x
             </Button>
@@ -137,7 +156,7 @@ function Chat() {
 
                   className="btn btn-danger deleteBtn"
                   type="Button"
-                  onClick={(e) => deleteMessage(e.target)}
+                  onClick={(e) => deleteDomMessage(e.target)}
 
                 >
                   X
@@ -156,19 +175,19 @@ function Chat() {
 
                 className="btn btn-danger mobile-deleteBtn"
                 type="Button"
-                onClick={(e) => deleteMessage(e.target)}
+                onClick={() => deleteMessage(message.id)}
 
               >
                 x
               </Button>
 
-              <img src='/Avatars/Beeo-o.jpg' alt="User Avatar" /> {/* Update avatar as needed */}
+              <img src={selectedAvatar || '/Avatars/Beeo-o.jpg'} alt="User Avatar" /> {/* Update avatar as needed */}
               <div className='message-structure'>
                 <div className="message-details">
                   <p>CafeVibes209{/*message.sender*/}</p> {/* Replace with actual sender name */}
                   <p className='timestamp'>Sent {message.timestamp}</p>
                   {/* Delete button and other message details */}
-                  <Button className="btn btn-danger deleteBtn" type="Button" onClick={(e) => deleteMessage(e.target)}>X</Button>
+                  <Button className="btn btn-danger deleteBtn" type="Button" onClick={() => deleteMessage(message.id)}>X</Button>
                 </div>
                 <p>{message.text}</p>
               </div>
