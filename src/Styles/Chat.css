@@ -70,11 +70,10 @@ img {
   opacity: 0;
 } 
 
-
 .avatar-option {
   cursor: pointer;
 }
 
 .avatar-option:hover {
   outline: 7px solid #E0C686;
-}
+} 
