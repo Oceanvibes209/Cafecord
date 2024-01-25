@@ -1,4 +1,3 @@
-//added by Calicia to test avatar selection
 import { useState } from 'react';
 import "../Styles/Chat.css"
 import Button from 'react-bootstrap/Button';
