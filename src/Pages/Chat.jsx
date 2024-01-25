@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import "../Styles/Chat.css"
+import "../Styles/sidemenu.css"
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import SideMenu from './SideMenu';
+import SideMenu from './sidemenu';
 
 function Chat() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
