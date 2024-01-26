@@ -5,9 +5,7 @@ function Login() {
 
   return (
     <div className="loginBackground">
-      <Link to='/Chat'><Button variant="info">Login</Button>{' '}</Link>
-      <Link to='/EditProfile'><Button variant="info">Profile</Button>{' '}</Link>
-    
+      <Link to='/Chat'><Button className="loginBtn" variant="info">Login</Button>{' '}</Link>
     </div>
   )
 }

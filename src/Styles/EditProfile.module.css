@@ -46,7 +46,7 @@
     cursor: pointer;
 }
 
-img{
+.avatarImgs > img{
     border-radius: 150px;
     width: 200px;
 }

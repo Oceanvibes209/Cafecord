@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import Chat from './Pages/Chat';
 import EditProfile from './Pages/EditProfile';
 import AvatarContext from './Pages/AvatarContext';
+import CalChat from './Pages/CalChat'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path='/Login' element={<Login />} />
       <Route path="/Chat" element={<Chat />} />
       <Route path='/EditProfile' element={<EditProfile />}/>
+      <Route path='/CalChat' element={<CalChat />}/>
     </Routes>
     </AvatarContext.Provider>
   )

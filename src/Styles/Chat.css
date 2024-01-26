@@ -51,21 +51,21 @@
   ::placeholder {
     color: white;
   }
-  .SideMenu {
+  /* .SideMenu {
     display: flex;
     align-items: center;
     flex-direction: column;
     position: sticky;
     width: 10%;
     background-color: #e0c686;
-  }
+  } */
   
-  .side-btn {
+  /* .side-btn {
     color: black;
     width: 60px;
     height: 60px;
     font-size: 80%;
-  }
+  } */
   
   
   .messages {
@@ -130,7 +130,7 @@
   
   .messages img {
     /* outline: 2px gray solid; */
-    width: 75px;
+    width: 70px;
     border-radius: 50px;
   }
   

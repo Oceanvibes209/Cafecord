@@ -4,5 +4,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+}
+
+.loginBtn{
+    width: 200px;
+    height: 150px;
 }
