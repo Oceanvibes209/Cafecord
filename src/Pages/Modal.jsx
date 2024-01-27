@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import "../Styles/CalChat.css"
+import {Link} from 'react-router-dom'
+import "../Styles/Modal.css"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -24,9 +25,13 @@ function Chat() {
   
   return (
     <div className='calChatBody'>
+      <div>
+        <Link to={'/Chat'}><Button>Chat</Button></Link>
+      </div>
       <h3>Chat area</h3>
       {/* <Button><Link to={'/Chat'} >Chat</Link></Button> */}
       {/* Button to open react-bootstrap modal to user's edit profile, button has been customized using variant */}
+      
       <Button variant="open-modal" onClick={handleShow}>
         Edit Profile
       </Button>
@@ -36,12 +41,12 @@ function Chat() {
         <Modal.Header closeButton>
           <Modal.Title className="modal-title">Edit Profile</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <Form>
+        <Modal.Body className='formBackground'>
+          <Form >
 
             {/* Edit/Change username form*/}
             <Form.Group className="mb-3" controlId="userForm.ControlInput1">
-              <Form.Label>Change Username</Form.Label>
+              <Form.Label className='formLabel'>Change Username</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="New username..."
@@ -50,11 +55,11 @@ function Chat() {
             </Form.Group>
 
             {/* Avatar selection form using radio buttons with avatar images*/}
-            <p>Select Avatar</p>
+            <p className='selectionTitle'>Select Avatar</p>
             <div className= "avatar-form">
               {/* <p className="avatar-form--hide">Select Avatar</p> */}
               {['radio'].map((type) => (
-                <div key={`inline-${type}`} className="mb-3">
+                <div key={`inline-${type}`} className="mb-3 formBody">
                   <Form.Check
                     inline
                     label= {<img src= '/Avatars/Beeo-o.jpg' alt='social-media-cafe' className="avatar-option"/>}
@@ -132,7 +137,7 @@ function Chat() {
           </Form>
         </Modal.Body>
 
-        <Modal.Footer>
+        <Modal.Footer className='modalFooter'>
 
           <Button variant="avatar-close" onClick={handleClose}>
             Close

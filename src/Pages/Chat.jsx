@@ -107,7 +107,7 @@ function Chat() {
             <Button className="btn btn-danger mobile-deleteBtn" type="Button" onClick={(e) => deleteDomMessage(e.target)}>
               x
             </Button>
-            <img src='/Avatars/Beeo-o.jpg' alt="User Avatar" />
+            <img src={selectedAvatar || '/Avatars/Beeo-o.jpg'} alt="User Avatar" />
             <div className='message-structure'>
               <div className="message-details">
                 <p>Cafevibes209</p>

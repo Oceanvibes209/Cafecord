@@ -6,7 +6,7 @@ import Login from './Pages/Login';
 import Chat from './Pages/Chat';
 import EditProfile from './Pages/EditProfile';
 import AvatarContext from './Pages/AvatarContext';
-import CalChat from './Pages/CalChat'
+import CalChat from './Pages/Modal'
 
 
 function App() {

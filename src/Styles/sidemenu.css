@@ -1,7 +1,6 @@
-.SideMenu{
+.side-menu{
     background-color: #E0C686;
     width: 20%;
-    height: 880px;
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -67,14 +66,21 @@
 }
 
 .channel-list li {
+  text-align: center;
     margin-bottom: 15px; 
     transition: background-color 0.3s;
 }
-.channel-list li:hover {
+.channel-list li:hover, .editBtn:hover {
     background-color: #F9E8BD
 }
 
 .channel-list li a {
     text-decoration: none; 
     color: black;
+}
+
+.editBtn{
+  width: 100%;
+  border: none;
+  background-color:#E0C686;
 }
