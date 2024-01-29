@@ -10,6 +10,12 @@ import profileImage from '../assets/profile-image.png';
 import { v4 as uuidv4 } from 'uuid';
 import { TiDelete } from "react-icons/ti";
 import { IoMdAdd } from "react-icons/io";
+// added code here 
+import { db, auth } from '../firebase.js';
+import {  signOut } from 'firebase/auth';
+import { collection, serverTimestamp, addDoc, onSnapshot, query, orderBy, doc, getDocs, where } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import Chat from '../Components/Chat-area.jsx';
 
 const CreateGroup = () => {
     const [formData, setFormData] = useState({
@@ -30,31 +36,79 @@ const CreateGroup = () => {
     const descriptionRef =useRef(null);
     const addMemBtnRef = useRef(null);
     const addSubmitBtnRef = useRef(null);
-    const handleAddMember = () => {
-        const memberId = uuidv4();
-            const username = usernameRef.current.value;
+    // Using on snapshot every time channelRef gets updated(New Channel gets created) the the channelObj which contains all the channels
+ 
+    const fetchMember = async (username) => {
+        if (username === "") return;
+        try {
+            const usersRef = collection(db, "users");
+            // Create a query against the collection.
+            const q = query(usersRef, where("username", "==", username))
+            const querySnapshot = await getDocs(q);
+            let data;
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                doc.data();
+                data = doc.data();
+            });  
+            return data;
+        } catch (error){
+            console.log("Error getting documents: ", error);
+        } 
+      }
+    const handleAddMember = async () => {
+        // const memberId = uuidv4();
+            let username = usernameRef.current.value;
             if (!username) {
                 return;
             }
+            username = username[0].toUpperCase() + username.substr(1);
             usernameRef.current.value = '';
             // search for username in the database and get member object with the same username as below:
             //  if username found
-            const member = {
-                id: memberId,
-                username: username,
-                firstName: 'abc',
-                lastName: 'xyz',
-                imageUrl: profileImage,
-                messages: []
-            };
-            setFormData(prevData => (
-                {
-                    ...prevData,
-                    members: [...prevData.members, member]
-                }
-            ))
-            // else throw error, "User not found!".
+            // const member = {
+            //     id: memberId,
+            //     username: username,
+            //     firstName: 'abc',
+            //     lastName: 'xyz',
+            //     imageUrl: profileImage,
+            //     messages: []
+            // };
+            const member = await fetchMember(username);
+            console.log(member, username);
+            if (member){
+                setFormData(prevData => (
+                    {
+                        ...prevData,
+                        members: [...prevData.members, member]
+                    }
+                ))
+            } else {
+               console.error("Username not found!");
+            }
     }
+   
+    //submitting a document as an object to the firestore collection channelRef 
+   const channelSubmit = async (group) => {
+    const channelRef = collection(db, "channels");
+    if (group.groupName === "") return;
+    try {
+      await addDoc(channelRef, {
+        title: group.groupName,
+        description: group.description,
+        time: serverTimestamp(),
+        members: group.members
+      })
+      alert(`Created a group with the name ${group.title}!
+         
+         ${JSON.stringify(group)};
+        `);
+    //   setTitle("");
+    } catch (error) {
+      console.error(error);
+    }
+  }
     const handleSubmit = (e) => {
         e.preventDefault();
         const result = /\S+/.test(e.currentTarget.name.value);
@@ -66,10 +120,11 @@ const CreateGroup = () => {
         const newGroup = {id: uuidv4(), ...formData};
         console.log(newGroup)
         // save new group in database then alert;
-        alert(`Created a group with the name ${newGroup.groupName}!
+        channelSubmit(newGroup);
+        // alert(`Created a group with the name ${newGroup.groupName}!
          
-         ${JSON.stringify(newGroup)};
-        `);
+        //  ${JSON.stringify(newGroup)};
+        // `);
     }
     const handleDeleteMember = (id) => {
         const updatedMembers = formData.members.filter(member => member.id !== id);
@@ -112,7 +167,7 @@ const CreateGroup = () => {
        
     }
     const handleBlur = (e)=> {
-        e.target.addClass("input-blur");
+        e.target.classList.add("input-blur");
     }
     return (
         <Container fluid className={Styles.body}>
@@ -184,7 +239,7 @@ const CreateGroup = () => {
                         </Row>
                         <Row>
                             <Col xs={{ span: 10, offset: 1 }}>
-                                <Button ref={addSubmitBtnRef}className="my-5" type="submit" variant='warning' id="new-group">Create Group</Button>
+                                <Button ref={addSubmitBtnRef}className="my-4" type="submit" variant='warning' id="new-group">Create Group</Button>
                             </Col>
                         </Row>
                     </Form>
