@@ -155,8 +155,10 @@ export default function SignUp() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user.displayName);
+        console.log(user);
         navigate('/chat');
+      } else {
+        console.log('No user signed in')
       }
     });
   }, []);
