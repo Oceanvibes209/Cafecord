@@ -6,10 +6,12 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../firebase.js';
+import profileImg from '../assets/profile-image.png';
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   onAuthStateChanged,
+  updateProfile 
 } from 'firebase/auth';
 
 export default function SignUp() {
@@ -27,6 +29,10 @@ export default function SignUp() {
     e.preventDefault();
     setFormErrors([]);
 
+    if (email.length > 0 && !emailValid) {
+      setFormErrors((prevErrors) => [...prevErrors, 'Email is invalid']);
+    }
+
     if (email === '') {
       setFormErrors((prevErrors) => [...prevErrors, 'Email can\'t be blank']);
     }
@@ -35,9 +41,6 @@ export default function SignUp() {
       setFormErrors((prevErrors) => [...prevErrors, 'Password can\'t be blank']);
     }
 
-    if (email.length > 0 && !emailValid) {
-      setFormErrors((prevErrors) => [...prevErrors, 'Email is invalid']);
-    }
 
     if (password !== confirmPassword) {
       setFormErrors((prevErrors) => [...prevErrors, 'Passwords don\'t match']);
@@ -52,13 +55,14 @@ export default function SignUp() {
     ) {
       try {
         setIsLoading(true);
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        // const user = userCreds.user;
-        // console.log(user);
+        const userCreds = await createUserWithEmailAndPassword(auth, email, password)
+        const user = userCreds.user;
+        
+        const displayName = generateRandomHexCode()
+        updateProfile(auth.currentUser, {
+          displayName: displayName,
+          photoURL: profileImg
+        })
         navigate('/profile');
       } catch (error) {
         console.error(error);
@@ -136,11 +140,25 @@ export default function SignUp() {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  function generateRandomHexCode() {
+    const characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    let hexCode = 'Cafevibes#';
+  
+    for (let i = 0; i < 4; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      hexCode += characters[randomIndex];
+    }
+  
+    return hexCode;
+  }
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user.displayName);
+        console.log(user);
         navigate('/chat');
+      } else {
+        console.log('No user signed in')
       }
     });
   }, []);

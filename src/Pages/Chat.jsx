@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import "../Styles/Chat.css"
 import Button from 'react-bootstrap/Button'
 import AvatarContext from './AvatarContext';
+import { auth } from '../firebase';
 
 function Chat() {
 
   const { selectedAvatar } = useContext(AvatarContext);
   const [messages, setMessages] = useState([]);
+
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut()
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   function deleteMessage(messageId) {
     // Confirm deletion (you can customize this part)
@@ -88,7 +97,7 @@ function Chat() {
 
       <div className='SideMenu'>
         <Link to={'/EditProfile'}><Button className="btn btn-primary side-btn" type="Button">Edit Profile</Button></Link>
-        <Link to={'/Login'}><Button className="side-btn" variant="info"><p>Logout</p></Button>{' '}</Link>
+        <Link to={'/Login'}><Button onClick={handleSignOut} className="side-btn" variant="info"><p>Logout</p></Button>{' '}</Link>
         <Link to={'/group-form'} className='side-btn'><Button>Create Group</Button></Link>
       </div>
 
