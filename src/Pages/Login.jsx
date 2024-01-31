@@ -61,7 +61,7 @@ const LoginBox = () => {
               </button>
             </form>
             <p className="mt-3 accounttext">
-              Don't have an account? <Link to="../Pages/Signup">Sign up</Link>.
+              Join Cafecord to get started. <Link to="../Pages/Signup">Join now</Link>.
             </p>
           </div>
         </div>
