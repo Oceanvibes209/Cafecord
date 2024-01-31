@@ -6,16 +6,11 @@ import Form from 'react-bootstrap/Form';
 import Styles from '../Styles/Create-group.module.css';
 import Image from '../assets/beautiful-coffee-image.png';
 import Stack from 'react-bootstrap/Stack';
-import profileImage from '../assets/profile-image.png';
 import { v4 as uuidv4 } from 'uuid';
 import { TiDelete } from "react-icons/ti";
 import { IoMdAdd } from "react-icons/io";
-// added code here 
-import { db, auth } from '../firebase.js';
-import {  signOut } from 'firebase/auth';
-import { collection, serverTimestamp, addDoc, onSnapshot, query, orderBy, doc, getDocs, where } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
-import Chat from '../Components/Chat-area.jsx';
+import { db} from '../firebase.js';
+import { collection, serverTimestamp, addDoc,  query, getDocs, where } from 'firebase/firestore';
 
 const CreateGroup = () => {
     const [formData, setFormData] = useState({
@@ -39,8 +34,10 @@ const CreateGroup = () => {
     // Using on snapshot every time channelRef gets updated(New Channel gets created) the the channelObj which contains all the channels
  
     const fetchMember = async (username) => {
+        // matches the passed in username with the authenticated user in the users collection 
         if (username === "") return;
         try {
+            // if user exists then adds user as a member of the channel / group
             const usersRef = collection(db, "users");
             // Create a query against the collection.
             const q = query(usersRef, where("username", "==", username))
@@ -58,25 +55,14 @@ const CreateGroup = () => {
         } 
       }
     const handleAddMember = async () => {
-        // const memberId = uuidv4();
             let username = usernameRef.current.value;
             if (!username) {
                 return;
             }
             username = username[0].toUpperCase() + username.substr(1);
             usernameRef.current.value = '';
-            // search for username in the database and get member object with the same username as below:
-            //  if username found
-            // const member = {
-            //     id: memberId,
-            //     username: username,
-            //     firstName: 'abc',
-            //     lastName: 'xyz',
-            //     imageUrl: profileImage,
-            //     messages: []
-            // };
+            // gets the user object 
             const member = await fetchMember(username);
-            console.log(member, username);
             if (member){
                 setFormData(prevData => (
                     {
@@ -93,18 +79,15 @@ const CreateGroup = () => {
    const channelSubmit = async (group) => {
     const channelRef = collection(db, "channels");
     if (group.groupName === "") return;
+    const memberIds = group.members.map(member => member.id);
     try {
       await addDoc(channelRef, {
         title: group.groupName,
         description: group.description,
         time: serverTimestamp(),
-        members: group.members
+        members: memberIds
       })
-      alert(`Created a group with the name ${group.title}!
-         
-         ${JSON.stringify(group)};
-        `);
-    //   setTitle("");
+      alert(`Created a group with the name ${group.groupName}`);
     } catch (error) {
       console.error(error);
     }
@@ -118,13 +101,8 @@ const CreateGroup = () => {
             return;
         };
         const newGroup = {id: uuidv4(), ...formData};
-        console.log(newGroup)
-        // save new group in database then alert;
+        // save new group in database
         channelSubmit(newGroup);
-        // alert(`Created a group with the name ${newGroup.groupName}!
-         
-        //  ${JSON.stringify(newGroup)};
-        // `);
     }
     const handleDeleteMember = (id) => {
         const updatedMembers = formData.members.filter(member => member.id !== id);
