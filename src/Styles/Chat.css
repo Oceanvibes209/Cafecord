@@ -5,10 +5,13 @@
 }*/
 
 .modal {
-  background-color: #747053;
-  /* color: white; */
+  background-color: #7f70534d;
+  color: white;
 }
 
+.formBackground{
+  background-color: #7f7053;
+}
 
 /* Did not work in changing inner- modal color
 .modal-container {
@@ -22,8 +25,12 @@
   color: #1A1718;
 }
 
+.modalFooter{
+  background-color: #E0C686;
+}
+
 /* no success in centering title
-.modal-title {
+.modalTitle {
   display: flex;
   align-items: center;
 } */
@@ -64,16 +71,33 @@ img {
   padding-left: 90px;
 }
 
-/* testing to hide radio buttons */
+/* Hides radio buttons */
 
 #inline-radio-1, #inline-radio-2, #inline-radio-3, #inline-radio-4, #inline-radio-7, #inline-radio-8 {
   opacity: 0;
 } 
 
-.avatar-option {
+
+/* Highlights avatar the user is hovering on and stays highlighted after user checks an avatar option */
+.avatar-button {
   cursor: pointer;
 }
 
-.avatar-option:hover {
-  outline: 7px solid #E0C686;
+.avatar-button:hover {
+ /*  outline: 7px solid #E0C686; */
+  outline: 7px solid white;
 } 
+
+/* attempts to keep avatar highlighted when selected/checked
+ .avatar-radio:checked + span {
+  outline: 7px solid #E0C686;
+} */
+
+/* .avatar-button:checked + label {
+  outline: 7px solid #E0C686;
+}  */
+
+input[type=radio]:checked + label {
+  outline: 7px solid #E0C686;
+  border-radius: 50%;
+}
