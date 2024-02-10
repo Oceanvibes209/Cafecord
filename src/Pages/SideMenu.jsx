@@ -59,17 +59,39 @@ const SideMenu = () => {
   ]
   
   const handleProfile = async () => {
-    await updateProfile(auth.currentUser, {
-      displayName: username,
-      photoURL: avatar
-    })
-    
+    //spacesOnlyUsername is basically '    '
+    const spacesOnlyUsername = username.trim() === '';
+    //trimmedUsername is a username with no leading or trailing spaces ex: ' bob ' => 'bob'
+    const trimmedUsername = username.replace(/\s/g, '');
 
-    setUserInfo({
-      ...userInfo,
-      userName: username,
-      avatar: avatar
-    });
+    if(spacesOnlyUsername){
+      await updateProfile(auth.currentUser, {
+        photoURL: avatar
+      })
+      setUserInfo({
+        ...userInfo,
+        avatar: avatar
+      });
+    } else if (avatar === ''){
+      await updateProfile(auth.currentUser, {
+        displayName: trimmedUsername
+      })
+      setUserInfo({
+        ...userInfo,
+        userName: username,
+      });
+    } else {
+        await updateProfile(auth.currentUser, {
+        displayName: trimmedUsername,
+        photoURL: avatar
+      })
+      setUserInfo({
+        ...userInfo,
+        userName: username,
+        avatar: avatar
+      });
+    }
+    
     console.log('Name', auth.currentUser.displayName)
     console.log('avatar: ', auth.currentUser.photoURL)
     setShow(false)
@@ -222,7 +244,7 @@ const SideMenu = () => {
                 <Button variant="avatar-close" onClick={handleClose}>
                   Close
                 </Button>
-                <Button variant="avatar-save" onClick={handleProfile}>
+                <Button disabled={username.trim() === '' && avatar == ''} variant="avatar-save" onClick={handleProfile}>
                 Save Changes
                 </Button>
               </Modal.Footer>
