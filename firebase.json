@@ -1,13 +1,6 @@
 {
   "hosting": {
     "public": "dist",
-    "site": "cafecord",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
     "ignore": [
       "firebase.json",
       "**/.*",
