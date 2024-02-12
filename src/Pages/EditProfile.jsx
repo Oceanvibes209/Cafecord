@@ -1,38 +1,15 @@
-// import { Link } from "react-router-dom";
-// import styles from '../Styles/EditProfile.module.css';
-
-//  function EditProfile() {
-
-
-//     return(
-//         <div className={styles.profileBackground}>
-//             <div className={styles.epSideMenu}><Link className={styles.profileLinks} to={'/Chat'}>Chat</Link></div>
-//             <div className={styles.avatarCard}>
-//                 <p>Select New Avatar</p>
-//                 <img src="/Avatars/coffeeBrewers.jpg" alt="Coffee Brewer" />
-//                 <img src="/Avatars/coffeeBrewers2.jpg" alt="Coffee Brewer" />
-//                 <img src="/Avatars/coffeeMaker1.jpg" alt="Coffee Brewer" />
-//                 <img src="/Avatars/coffeeMaker2.jpg" alt="Coffee Brewer" />
-//                 <img src="/Avatars/coffeeMaker3.jpg" alt="Coffee Brewer" />
-//             </div>
-            
- 
-//         </div>
-//     )
-// }
-
-// export default EditProfile;
-
-
 import { useState } from 'react';
 import {Link} from 'react-router-dom'
 import "../Styles/Modal.css"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-//import FormCheck from 'react-bootstrap/FormCheck'
-//import ToggleButton from 'react-bootstrap/ToggleButton';
-//import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import Beeo from '../Avatars/Beeo-o.jpg';
+import Cafeart from '../Avatars/cafeart.jpg';
+import Cafeart2 from '../Avatars/cafeart2.jpg';
+import ComputerDog from '../Avatars/computerDog.jpg';
+import CofffeMaker2 from '../Avatars/coffeeMaker2.jpg';
+import CoffeBrewers2 from '../Avatars/coffeeBrewers2.jpg';
 
 function EditProfile() {
 
@@ -48,13 +25,9 @@ function EditProfile() {
         <Link to={'/Chat'}><Button>Chat</Button></Link>
       </div>
       <h3>Chat area</h3>
-      {/* <Button><Link to={'/Chat'} >Chat</Link></Button> */}
-      {/* Button to open react-bootstrap modal to user's edit profile, button has been customized using variant */}
-      
       <Button variant="open-modal" onClick={handleShow}>
         Edit Profile
       </Button>
-
       {/* Modal area for user to edit profile */}
       <Modal show={show} onHide={handleClose} >
         <Modal.Header closeButton>
@@ -81,7 +54,7 @@ function EditProfile() {
                 <div key={`inline-${type}`} className="mb-3 formBody">
                   <Form.Check
                     inline
-                    label= {<img src= '/Avatars/Beeo-o.jpg' alt='social-media-cafe' className="avatar-option"/>}
+                    label= {<img src={Beeo} alt='social-media-cafe' className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-1`}
@@ -92,7 +65,7 @@ function EditProfile() {
 
                   <Form.Check
                     inline
-                    label={<img src= '/Avatars/cafeart.jpg' alt='two-cafe-friends'className="avatar-option"/>}
+                    label={<img src={Cafeart} alt='two-cafe-friends'className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-2`}
@@ -100,7 +73,7 @@ function EditProfile() {
 
                   <Form.Check
                     inline
-                    label={<img src= '/Avatars/cafeart2.jpg' alt='lady-holding-coffee'className="avatar-option"/>}
+                    label={<img src={Cafeart2} alt='lady-holding-coffee'className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-3`}
@@ -108,7 +81,7 @@ function EditProfile() {
 
                   <Form.Check
                     inline
-                    label={<img src= '/Avatars/computerDog.jpg' alt='coding-dog'className="avatar-option"/>}
+                    label={<img src={ComputerDog} alt='coding-dog'className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-4`}
@@ -117,7 +90,7 @@ function EditProfile() {
                   <label>
                   <Form.Check
                     inline
-                    label={<img src= '/Avatars/coffeeMaker2.jpg' alt='pink-cafe-girl' className="avatar-option"/>}
+                    label={<img src={CofffeMaker2} alt='pink-cafe-girl' className="avatar-option"/>}
                     name="group1"
                     type={type}
                     id={`inline-${type}-7`}
@@ -127,7 +100,7 @@ function EditProfile() {
                   
                   <Form.Check
                     inline
-                    label={<img src= '/Avatars/coffeeBrewers2.jpg' alt='boy-walking-with-coffee' className="avatar-option" />}
+                    label={<img src={CoffeBrewers2} alt='boy-walking-with-coffee' className="avatar-option" />}
                     name="group1"
                     type={type}
                     id={`inline-${type}-8`}
