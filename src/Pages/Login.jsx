@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; 
 import { auth, provider } from '../firebase.js';
 import { signInWithPopup,  signInWithEmailAndPassword } from 'firebase/auth';
+import profileImg from '../../public/assets/profile-image.png';
 import '../Styles/LoginBox.css';
  // import axios from 'axios'; for api, but not sure what api we got goin on
  // error installing react-google-login and api is confusing
@@ -33,10 +34,28 @@ const LoginBox = () => {
      const signInWithGoogle = async () => {
       try {
         await signInWithPopup(auth, provider);
+        
+        const displayName = generateRandomHexCode()
+        await updateProfile(auth.currentUser, {
+          displayName: displayName,
+          photoURL: profileImg
+      }) 
         navigate('/Chat')
       } catch (error) {
         console.error(error.message)
       }
+    }
+
+    function generateRandomHexCode() {
+      const characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+      let hexCode = 'Cafevibes#';
+    
+      for (let i = 0; i < 4; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        hexCode += characters[randomIndex];
+      }
+    
+      return hexCode;
     }
   
   return (

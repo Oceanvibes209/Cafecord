@@ -7,7 +7,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, provider } from '../firebase.js';
-import profileImg from '/assets/profile-image.png';
+import profileImg from '../../public/assets/profile-image.png';
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,
@@ -96,6 +96,13 @@ export default function SignUp() {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, provider);
+        
+      const displayName = generateRandomHexCode()
+      await updateProfile(auth.currentUser, {
+          displayName: displayName,
+          photoURL: profileImg
+      }) 
+       
       navigate('/chat');
     } catch (error) {
       console.error(error.message);
